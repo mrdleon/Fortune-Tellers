@@ -67,13 +67,13 @@ body::after {
     flex-wrap: wrap; /*membuat element akan otomatis kebawah jika sempit*/
     max-width: 900px;
     width: 90%;
+    z-index: 10;
 }
 
 .welcome-section .fortune-logo {
     width: 250px; /* Ukuran logo */
     height: auto;
     margin-right: 20px; /* Spasi antara logo dan teks */
-    z-index: 10;
 }
 
 .welcome-section .fortune-logo:hover {
@@ -109,21 +109,22 @@ body::after {
 
 /* Slider Section/ section 2 */
 
-header {
+.header {
     text-align: center;
     padding-top: 5rem;
     padding-bottom: 0.1rem;
+    z-index: 10;
     /* padding: 2rem; */
     
 }
 
-header h1 {
+.header h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: #fff
 }
 
-header h1 span {
+.header h1 span {
     color: var(--primary);
 }
 
@@ -143,6 +144,7 @@ header h1 span {
     transition: transform 0.5s ease-in-out; /*Saat slider bergeser, efeknya halus dalam 0.5 detik.*/
     width: 100%;
     color: #fff;
+    z-index: 10;
 }
 
 .slide {
@@ -229,6 +231,7 @@ header h1 span {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 .icon-link {
