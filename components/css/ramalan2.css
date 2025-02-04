@@ -1,0 +1,175 @@
+/* Reset dan Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Tombol Kembali */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #F2DC6D;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-button:hover {
+    background-color: #d4bb5f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+
+/* Styling Section */
+body {
+  color: #fff;
+  background: radial-gradient(circle at bottom, #0d0b32, #1b0040, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  scroll-behavior: smooth;
+  min-height: 100vh; /* Memastikan body minimal sebesar viewport */
+  overflow-y: auto; /* Mengaktifkan scrolling vertikal */
+  
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+  animation: twinkle 3s infinite;
+}
+
+/* Animasi Bintang */
+@keyframes twinkle {
+  0%, 100% {
+  opacity: 0.8;
+  }
+  50% {
+  opacity: 1;
+  }
+}
+
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+header h1 {
+  font-size: 2em;
+  color: #ff79c6;
+}
+
+header p {
+  font-size: 1.2em;
+  color: #f8f8f8;
+}
+
+.question {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.question p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin: 5px 0;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button {
+  background: #ff79c6;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #ff4081;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #f8f8f8;
+}
+
+.result img {
+  margin-top: 10px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Styling untuk Tablet */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .container {
+      padding: 2rem 3rem;
+  }
+
+  .container header h1 {
+      font-size: 32px;
+  }
+
+  .container header p {
+    font-size: 22px;
+  }
+
+}
+
+/* Styling untuk Mobile */ 
+@media (max-width: 767px) {
+  
+  .back-button{
+      padding: 0.2rem;
+  }
+
+  .container {
+      padding-top: 5rem;
+  }
+
+  .container header h1 {
+      font-size: 25px;
+  }
+
+  .container header p{
+      font-size: 15px;
+  }
+
+  #quiz-form .question {
+    font-size: 12px;
+  }
+}

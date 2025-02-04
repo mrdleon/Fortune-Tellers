@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/ramalan2.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <a href="../../main.html" class="back-button"><i data-feather="corner-down-left"></i></a>
+
+    <div class="container">
+      <header>
+        <h1>Tes Kepribadian Mystical</h1>
+        <p>Jawab pertanyaan berikut untuk mengetahui elemen pribadi Anda!</p>
+      </header>
+      <form id="quiz-form">
+        <div class="question">
+          <p>1. Pilih warna yang paling Anda sukai:</p>
+          <label><input type="radio" name="question1" value="Api"> Merah / Oranye</label>
+          <label><input type="radio" name="question1" value="Air"> Biru / Hijau</label>
+          <label><input type="radio" name="question1" value="Udara"> Putih / Kuning</label>
+          <label><input type="radio" name="question1" value="Tanah"> Cokelat / Hitam</label>
+        </div>
+        <div class="question">
+          <p>2. Apa aktivitas favorit Anda?</p>
+          <label><input type="radio" name="question2" value="Api"> Olahraga / Petualangan</label>
+          <label><input type="radio" name="question2" value="Air"> Meditasi / Renang</label>
+          <label><input type="radio" name="question2" value="Udara"> Membaca / Menulis</label>
+          <label><input type="radio" name="question2" value="Tanah"> Berkebun / Memasak</label>
+        </div>
+        <div class="question">
+          <p>3. Bagaimana Anda menghadapi konflik?</p>
+          <label><input type="radio" name="question3" value="Api"> Langsung Menghadapinya</label>
+          <label><input type="radio" name="question3" value="Air"> Menghindari Konflik</label>
+          <label><input type="radio" name="question3" value="Udara"> Menganalisis dengan Tenang</label>
+          <label><input type="radio" name="question3" value="Tanah"> Berusaha Menstabilkan Situasi</label>
+        </div>
+        <button type="submit">Lihat Hasil</button>
+      </form>
+      <div id="result" class="result"></div>
+    </div>
+
+
+<!-- Firebase dan logika js -->
+ <script type="module">
+    // Konfigurasi Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+    // push Ingin menyimpan banyak data tanpa menimpa yang lama.
+    
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAzv6DVsAMgMTaEdz859J6fUI8DgkzmF-s",
+      authDomain: "ramalanweb-6dba6.firebaseapp.com",
+      databaseURL: "https://ramalanweb-6dba6-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ramalanweb-6dba6",
+      storageBucket: "ramalanweb-6dba6.firebasestorage.app",
+      messagingSenderId: "556205131572",
+      appId: "1:556205131572:web:155f4b6923909c8e534761",
+      measurementId: "G-VBEQBX1882"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Variabel untuk melacak apakah hasil sudah ditampilkan
+    let hasAnswered = false;
+
+    document.getElementById("quiz-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Periksa apakah user sudah menjawab sebelumnya
+      if (hasAnswered === true) {
+        alert("Anda hanya bisa menjawab satu kali!");
+        return;
+      }
+
+      // Ambil nilai jawaban
+      const answers = [
+        document.querySelector('input[name="question1"]:checked')?.value,
+        document.querySelector('input[name="question2"]:checked')?.value,
+        document.querySelector('input[name="question3"]:checked')?.value //?.value = untuk menghindari error jika jawaban belum dipilih.
+        // ["api", "api", "air"]
+      ];
+
+      // Pastikan semua pertanyaan dijawab
+      if (answers.includes(undefined)) {
+        alert("Mohon jawab semua pertanyaan!");
+        return;
+      }
+
+      // Hitung elemen berdasarkan jawaban
+      const elementCounts = {}; // key-value {"api : 1", "udara: 1"}, [] Array tidak bisa langsung memberi tahu kita berapa kali setiap elemen dipilih, karena array hanya menyimpan daftar tanpa key tertentu.
+
+      // Menghitung jumlah pilihan untuk setiap elemen
+      for (let i = 0; i < answers.length; i++) {
+        let answer = answers[i];
+
+        if (elementCounts[answer] === undefined) {
+          elementCounts[answer] = 1; // Jika belum ada, mulai dari 1
+        } else {
+          elementCounts[answer]++; // Jika sudah ada, tambahkan 1
+        }
+      }
+
+      // Menentukan elemen dengan jumlah pilihan terbanyak
+      let finalElement = "";
+      let maxCount = 0;
+
+      for (let key in elementCounts) {
+        if (elementCounts[key] > maxCount) {
+          maxCount = elementCounts[key];
+          finalElement = key;
+        } else {
+          console.log(`Ada elemen ${key} dengan jumlah yang sama (${maxCount})`);
+        }
+      }
+
+
+      // Data hasil elemen
+      const elements = {
+        "Api": {
+          description: "Anda adalah pribadi yang bersemangat, berani, dan penuh energi.",
+          image: "../../assets/images/element/api.webp"
+        },
+        "Air": {
+          description: "Anda adalah pribadi yang tenang, fleksibel, dan penuh kasih.",
+          image: "../../assets/images/element/air.webp"
+        },
+        "Udara": {
+          description: "Anda adalah pribadi yang cerdas, kreatif, dan penuh ide.",
+          image: "../../assets/images/element/udara.png"
+        },
+        "Tanah": {
+          description: "Anda adalah pribadi yang stabil, dapat dipercaya, dan penuh empati.",
+          image: "../../assets/images/element/tanah.jpg"
+        }
+      };
+
+      const result = elements[finalElement];
+
+      // Tampilkan hasil
+      document.getElementById("result").innerHTML = `
+        <h2>Hasil Tes Kepribadian Anda</h2>
+        <p>Elemen Anda adalah: <strong>${finalElement}</strong></p>
+        <p>${result.description}</p>
+        <img src="${result.image}" alt="${finalElement}">
+      `;
+
+      // Simpan hasil ke Firebase
+      const userData = {
+        timestamp: new Date().toISOString(),
+        element: finalElement,
+        description: result.description
+      };
+
+      push(ref(database, "cek-Element"), userData)
+        .then(() => {
+          alert("Data berhasil disimpan ke Firebase.");
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan saat menyimpan data:", error);
+          alert("Gagal menyimpan data ke Firebase.");
+        });
+
+      // Tandai bahwa user sudah menjawab
+      hasAnswered = true;
+    });
+
+ </script>
+
+
+
+<script src="../js/ramalan3.js"></script>
+
+<!-- Feather Icons -->    
+<script>
+    feather.replace();
+</script>
+
+</body>
+</html>

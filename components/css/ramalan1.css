@@ -1,0 +1,173 @@
+/* Import Font */
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap'); */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Tombol Kembali */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #F2DC6D;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #d4bb5f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+
+/* Body dan Background */
+body {
+    color: #fff;
+    background: radial-gradient(circle at bottom, #0d0b32, #1b0040, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    scroll-behavior: smooth;
+    min-height: 100vh; /* Memastikan body minimal sebesar viewport */
+    overflow-y: auto; /* Mengaktifkan scrolling vertikal */
+    
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: -1;
+    animation: twinkle 3s infinite;
+}
+
+/* Animasi Bintang */
+@keyframes twinkle {
+    0%, 100% {
+    opacity: 0.8;
+    }
+    50% {
+    opacity: 1;
+    }
+}
+
+/* Container */
+.container {
+    text-align: center;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+}
+
+.title {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #f3d9fa;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #d4c2f0;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #560bad, #480ca8);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #3a0ca3, #3f37c9);
+}
+
+.output {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #f4d35e;
+}
+  
+input[type="text"], input[type="date"] {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+}
+
+
+/* Styling untuk Tablet */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .container {
+        padding: 2rem 3rem;
+    }
+
+    .container .title {
+        font-size: 40px;
+    }
+
+}
+
+/* Styling untuk Mobile */ 
+@media (max-width: 767px) {
+    
+    .back-button{
+        padding: 0.2rem;
+    }
+
+    .container {
+        padding-top: 4rem;
+    }
+
+    .container .title {
+        font-size: 25px;
+    }
+
+    .container .subtitle{
+        font-size: 15px;
+    }
+}
+
+

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/ramalan1.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <a href="../../main.html" class="back-button"><i data-feather="corner-down-left"></i></a>
+
+    <div class="container">
+        <h1 class="title">🔮Cek Khodam Anda🔮</h1>
+        <p class="subtitle">Masukkan informasi di bawah untuk mengetahui khodam/hewan mistik Anda!</p>
+        <!-- gunakan form untuk mengirim & mengumpulkan data secara langsung ke server dengan tombol submit -->
+        <form id="khodam-form" class="form-container">
+          <input type="text" id="name" placeholder="Masukkan nama lengkap Anda" required>
+          <input type="date" id="birthdate" required>
+          <button type="submit" id="submit">Lihat Khodam</button>
+        </form>
+        <div id="output" class="output"></div>
+    </div>
+
+
+<!-- Firebase dan logika js -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+  
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAzv6DVsAMgMTaEdz859J6fUI8DgkzmF-s",
+      authDomain: "ramalanweb-6dba6.firebaseapp.com",
+      databaseURL: "https://ramalanweb-6dba6-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ramalanweb-6dba6",
+      storageBucket: "ramalanweb-6dba6.firebasestorage.app",
+      messagingSenderId: "556205131572",
+      appId: "1:556205131572:web:155f4b6923909c8e534761",
+      measurementId: "G-VBEQBX1882"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // get ref to database
+    const db = getDatabase(app);
+
+////////////////////////////////////////////////////////////
+// logika khodam-Check
+const previousEntries = [];
+
+// Fungsi untuk mengecek apakah data sudah pernah digunakan
+function isDuplicateEntry(data) {
+  return previousEntries.some(entry =>
+    entry.name === data.name &&
+    entry.birthdate === data.birthdate
+  );
+}
+
+// Fungsi untuk menghasilkan khodam dan deskripsinya
+function generateKhodam() {
+  const khodams = [
+    { 
+      name: "Naga Mistis", 
+      description: "Melambangkan kekuatan, kebijaksanaan, dan keberanian.", 
+      image: "../../assets/images/khodam/naga.jpg" 
+    },
+    { 
+      name: "Phoenix", 
+      description: "Simbol kelahiran kembali, keabadian, dan keindahan.", 
+      image: "../../assets/images/khodam/phoenix.webp" 
+    },
+    { 
+      name: "Harimau Putih", 
+      description: "Penjaga yang kuat dan pemberani, melambangkan keberanian yang besar.", 
+      image: "../../assets/images/khodam/harimau-putih.webp" 
+    },
+    { 
+      name: "Serigala", 
+      description: "Melambangkan loyalitas, kecerdikan, dan kerja sama.", 
+      image: "../../assets/images/khodam/serigala.jpg" 
+    },
+    { 
+      name: "Burung Hantu", 
+      description: "Simbol kebijaksanaan, intuisi, dan misteri.", 
+      image: "../../assets/images/khodam/burung-hantu.jpg" 
+    }
+  ];
+  return khodams[Math.floor(Math.random() * khodams.length)];
+  // Math.floor() berfungsi untuk membulatkan ke bawah ke bilangan bulat terdekat.
+  // Math.random() menghasilkan angka acak antara 0 dan 1.
+  // khodams.length (yaitu 5)
+  // Hasil akhirnya adalah angka 0, 1, 2, 3, atau 4, yang sesuai dengan indeks dalam array khodams.
+}
+
+// Event listener untuk form
+document.getElementById("khodam-form").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Ambil nilai dari form
+  const name = document.getElementById("name").value.trim(); //trim() menghapus spasi ekstra.
+  const birthdate = document.getElementById("birthdate").value.trim(); //trim() menghapus spasi ekstra.
+
+  // Gabungkan data
+  const currentEntry = {
+    name: name,
+    birthdate: birthdate
+  };
+
+  // Cek apakah data sudah ada
+  if (isDuplicateEntry(currentEntry)) {
+    alert("Data ini sudah pernah digunakan sebelumnya!");
+  } else {
+    // Simpan data baru ke dalam daftar
+    previousEntries.push(currentEntry);
+
+    // Hasilkan khodam dan deskripsinya
+    const khodam = generateKhodam();
+    
+    // Tampilkan hasil
+    document.getElementById("output").innerHTML = `
+      <h2>Hasil Ramalan Khodam Anda</h2>
+      <p>Nama: ${name}</p>
+      <p>Khodam Anda adalah: <strong>${khodam.name}</strong></p>
+      <p>Deskripsi: ${khodam.description}</p>
+      <img src="${khodam.image}" alt="${khodam.name}" onerror="this.onerror=null;this.src='https://source.unsplash.com/200x200/?${khodam.name}';" style="width:200px; height:auto; border-radius:10px;">
+    `; // Elemen <strong> ditujukan untuk konten yang "sangat penting,"
+
+    // Simpan hasil ke Firebase
+    set(ref(db, 'check-Khodam/' + name), {
+      name: name,
+      birthdate: birthdate,
+      khodam: {
+        name: khodam.name,
+        description: khodam.description,
+        image: khodam.image
+      }
+    })
+    .then(() => {
+      alert("Data berhasil disimpan ke Firebase!");
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan saat menyimpan data:", error);
+      alert("Gagal menyimpan data ke Firebase.");
+    });
+
+  }
+});
+  ///////////////////////////////////////////////////////////////
+    
+</script>
+    
+<!-- Feather Icons -->    
+<script>
+    feather.replace();
+</script>
+
+</body>
+</html>
