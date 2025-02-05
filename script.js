@@ -20,13 +20,6 @@ function tampilkanSlide(index) {
 // i adalah posisi (indeks) elemen dalam slides
 // i sebagai inisialisasi
 
-
-// const tampilkanSlide = (index) => {
-//     slides.forEach((slide, i) => {
-//       slide.classList.toggle('active', i === index);
-//     });
-//   };
-
 function nextSlide() {
     mulai = (mulai + 1) % slides.length;
     tampilkanSlide(mulai);

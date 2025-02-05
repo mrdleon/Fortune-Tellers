@@ -113,7 +113,7 @@ body::after {
     text-align: center;
     padding-top: 5rem;
     padding-bottom: 0.1rem;
-    z-index: 10;
+    z-index: 1;
     /* padding: 2rem; */
     
 }
@@ -144,7 +144,7 @@ body::after {
     transition: transform 0.5s ease-in-out; /*Saat slider bergeser, efeknya halus dalam 0.5 detik.*/
     width: 100%;
     color: #fff;
-    z-index: 10;
+    z-index: 1;
 }
 
 .slide {
