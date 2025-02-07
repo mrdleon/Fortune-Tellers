@@ -50,6 +50,20 @@ body::after {
     pointer-events: none; /* elemen ::after tidak dapat diinteraksi dengan pointer (mouse atau sentuhan). atau agar bisa di scroll*/
   }
 
+/* iseng iseng */
+.scroll-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+.welcome-section,
+.slider-section{
+    height: 100vh; /* Setiap section memiliki tinggi penuh layar */
+    scroll-snap-align: start;
+}
+
 /* Welcome section */
 .welcome-section {
     min-height: 100vh;
@@ -110,11 +124,17 @@ body::after {
 /* Slider Section/ section 2 */
 
 .header {
-    text-align: center;
+    /* text-align: center;
     padding-top: 5rem;
     padding-bottom: 0.1rem;
-    z-index: 1;
+    z-index: 1; */
     /* padding: 2rem; */
+
+    position: relative; /* Ubah dari absolute ke relative */
+    text-align: center;
+    width: 100%;
+    z-index: 10; /* Pastikan berada di atas elemen lain */
+    margin-bottom: 10px;
     
 }
 
@@ -133,10 +153,13 @@ body::after {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 2rem auto;
+    margin: 0 auto;
     width: 90%;
     max-width: 1200px;
     overflow: hidden; /* Menyembunyikan bagian/ child yang keluar dari slider.*/
+
+    flex-direction: column;
+    padding-top: 6rem; /* Tambahkan padding agar header tidak tertutup */
 }
 
 .slider {
@@ -173,7 +196,7 @@ body::after {
 
 .arrow {
     position: absolute;
-    top: 40%; /*50% menjadi 40%*/
+    top: 55%; /*50% menjadi 40%*/
     transform: translateY(-50%);
     background: none; /* Pastikan background tidak menutupi icon */
     color: #fff;
@@ -212,6 +235,8 @@ body::after {
     padding: 2rem 0;
     text-align: center;
     border-top: 2px solid var(--primary);
+
+    scroll-snap-align: start;
 }
 
 .footer-content {
@@ -320,7 +345,7 @@ body::after {
     }
 
     .arrow {
-        margin: 0 0.8rem;
+        margin: 0 3.5rem;
     } 
 }
 

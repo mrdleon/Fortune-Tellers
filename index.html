@@ -9,69 +9,70 @@
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>    
-
-    <!-- Section 1: Welcome Section -->
-    <section class="welcome-section">
-        <div class="container">
-            <img src="./assets/images/human/logo4.png" alt="Fortune Teller Logo" class="fortune-logo">
-            <div class="text-content">
-                <h1>Welcome To My World</h1>
-                <div class="line"></div>
-                <h2>Explore the beauty of imagination</h2>
-                <h2>Feel free to dive in and discover</h2>
+    <div class="scroll-container">
+        <!-- Section 1: Welcome Section -->
+        <section class="welcome-section">
+            <div class="container">
+                <img src="./assets/images/human/logo4.png" alt="Fortune Teller Logo" class="fortune-logo">
+                <div class="text-content">
+                    <h1>Welcome To My World</h1>
+                    <div class="line"></div>
+                    <h2>Explore the beauty of imagination</h2>
+                    <h2>Feel free to dive in and discover</h2>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!-- Section 2: Fortune-Tellers Section -->
-    <div class="header">
-        <h1>Discover Your <span>Future</span></h1>
+        <!-- Section 2: Fortune-Tellers Section -->
+        <section class="slider-section">
+            <div class="header">
+                <h1>Discover Your <span>Future</span></h1>
+            </div>
+            <button class="arrow left" onclick="prevSlide()">
+                <i data-feather="arrow-left"></i>
+            </button>
+            <div class="slider">
+                <div class="slide active">
+                    <a href="./components/html/ramalan1.html"><img src="./assets/images/human/peramal1.jpeg" alt="Fortune Teller 1"></a>
+                    <h2>Khodam Check</h2>
+                    <p>find out about your khodam by checking here</p>
+                </div>
+                <div class="slide">
+                    <a href="./components/html/ramalan2.html"><img src="./assets/images/human/peramal3.jpeg" alt="Fortune Teller 3"></a>
+                    <h2>mystical personality test</h2>
+                    <p>find your secret element with a few questions.</p>
+                </div>
+            </div>
+            <button class="arrow right" onclick="nextSlide()">
+                <i data-feather="arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- Section 3: footer Section -->
+        <footer class="footer-section">
+            <div class="footer-content">
+                <div class="footer-icons">
+                    <div class="icon">
+                        <a href="https://www.instagram.com/dimas_ramdhn05?igsh=emJ6cDhqcjBwenh0" target="_blank" class="icon-link">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                    <div class="icon">
+                        <a href="https://wa.me/62895375280351" target="_blank" class="icon-link">
+                            <i data-feather="message-circle"></i>
+                        </a>
+                    </div>
+                    <div class="icon">
+                        <a href="mailto:dimasrd42@gmail.com" target="_blank" class="icon-link">
+                            <i data-feather="mail"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-    <section class="slider-section">
-        <button class="arrow left" onclick="prevSlide()">
-            <i data-feather="arrow-left"></i>
-        </button>
-        <div class="slider">
-            <div class="slide active">
-                <a href="./components/html/ramalan1.html"><img src="./assets/images/human/peramal1.jpeg" alt="Fortune Teller 1"></a>
-                <h2>Khodam Check</h2>
-                <p>find out about your khodam by checking here</p>
-            </div>
-            <div class="slide">
-                <a href="./components/html/ramalan2.html"><img src="./assets/images/human/peramal3.jpeg" alt="Fortune Teller 3"></a>
-                <h2>mystical personality test</h2>
-                <p>find your secret element with a few questions.</p>
-            </div>
-        </div>
-        <button class="arrow right" onclick="nextSlide()">
-            <i data-feather="arrow-right"></i>
-        </button>
-    </section>
-
-    <!-- Section 3: footer Section -->
-    <footer class="footer-section">
-        <div class="footer-content">
-            <div class="footer-icons">
-                <div class="icon">
-                    <a href="https://www.instagram.com/dimas_ramdhn05?igsh=emJ6cDhqcjBwenh0" target="_blank" class="icon-link">
-                        <i data-feather="instagram"></i>
-                    </a>
-                </div>
-                <div class="icon">
-                    <a href="https://wa.me/62895375280351" target="_blank" class="icon-link">
-                        <i data-feather="message-circle"></i>
-                    </a>
-                </div>
-                <div class="icon">
-                    <a href="mailto:dimasrd42@gmail.com" target="_blank" class="icon-link">
-                        <i data-feather="mail"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-       
+    
     
 <!-- Java Script -->
 <script src="script.js"></script>
